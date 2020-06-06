@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29911.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zup.AdministracaoClientes.API", "src/Zup.AdministracaoClientes.API/Zup.AdministracaoClientes.API.csproj", "{0DFC7FED-8683-48F8-BC00-ADBA0BBBA71F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - API", "01 - API", "{029B0490-1BF8-44CB-995A-26E4F4BA434E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Domain", "02 - Domain", "{07C533E5-0355-4D20-8663-318A34608E1C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Data", "03 - Data", "{7689A2FE-38E9-4F92-BB54-9051788C68B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 - Test", "00 - Test", "{C7D428FD-9263-4898-978D-3745BD16DEE6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0DFC7FED-8683-48F8-BC00-ADBA0BBBA71F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DFC7FED-8683-48F8-BC00-ADBA0BBBA71F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DFC7FED-8683-48F8-BC00-ADBA0BBBA71F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DFC7FED-8683-48F8-BC00-ADBA0BBBA71F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0DFC7FED-8683-48F8-BC00-ADBA0BBBA71F} = {029B0490-1BF8-44CB-995A-26E4F4BA434E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A94B1D9F-923E-4032-BFD6-71496AB2BFAC}
+	EndGlobalSection
+EndGlobal
