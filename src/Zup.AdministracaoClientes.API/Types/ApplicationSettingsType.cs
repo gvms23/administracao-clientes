@@ -5,6 +5,6 @@
         public const string Key = "ApplicationSettings";
 
         public short? ApiVersion { get; set; }
-        public bool TestInMemoryDatabases { get; set; }
+        public bool TestInMemoryDatabase { get; set; }
     }
 }

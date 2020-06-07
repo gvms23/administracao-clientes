@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Zup.AdministracaoClientes.API.Configurations;
 using Zup.AdministracaoClientes.API.Types;
+using Zup.AdministracaoClientes.Data.Context;
 using Zup.AdministracaoClientes.Domain.Types;
 using Zup.AdministracaoClientes.Infra.CrossCutting.IoC;
 
@@ -27,6 +29,17 @@ namespace Zup.AdministracaoClientes.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var _applicationSettings = Configuration.GetSection(nameof(ApplicationSettingsType.Key)).Get<ApplicationSettingsType>();
+            
+            // In Memory
+            if (_applicationSettings.TestInMemoryDatabase)
+            {
+                services.AddDbContext<AdministracaoClientesContext>(opt =>
+                    opt.UseInMemoryDatabase(AdministracaoClientesContext.DatabaseName));
+            }
+            else
+                services.AddDbContext<AdministracaoClientesContext>();
+
             services
                 .AddControllers(options =>
                 {
@@ -70,9 +83,7 @@ namespace Zup.AdministracaoClientes.API
              * Ref: https://www.talkingdotnet.com/support-multiple-versions-of-asp-net-core-web-api/
              */
 
-            short? _apiVersion = Configuration.GetSection(nameof(ApplicationSettingsType.Key))
-                                             ?.Get<ApplicationSettingsType>()
-                                             ?.ApiVersion;
+
 
             RegisterOptions(services);
 
@@ -80,7 +91,7 @@ namespace Zup.AdministracaoClientes.API
             {
                 options.ReportApiVersions = true;
                 options.AssumeDefaultVersionWhenUnspecified = true;
-                options.DefaultApiVersion = new ApiVersion(_apiVersion ?? 1, 0);
+                options.DefaultApiVersion = new ApiVersion(_applicationSettings.ApiVersion ?? 1, 0);
                 options.UseApiBehavior = false;
             });
 
