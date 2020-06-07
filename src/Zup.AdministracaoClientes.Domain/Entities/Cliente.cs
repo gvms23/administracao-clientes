@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Zup.AdministracaoClientes.Domain.Entities.Base;
 using Zup.AdministracaoClientes.Domain.ValueObjects;
 
@@ -16,9 +17,9 @@ namespace Zup.AdministracaoClientes.Domain.Entities
             CPF = new CPF(cpf);
         }
 
-        public string Nome { get; set; }
+        public string Nome { get; private set; }
 
-        public CPF CPF { get; set; }
+        public CPF CPF { get; private set; }
 
         public ICollection<Endereco> Enderecos { get; } = new List<Endereco>();
 

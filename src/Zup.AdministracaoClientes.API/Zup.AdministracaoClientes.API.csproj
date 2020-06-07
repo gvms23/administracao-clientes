@@ -2,20 +2,27 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <DocumentationFile>wwwroot\api-docs.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
     <UserSecretsId>0d7b0890-2619-4d8f-b0b6-5b0e2d4e91fa</UserSecretsId>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
-    <DockerfileContext>.</DockerfileContext>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Zup.AdministracaoClientes.Domain\Zup.AdministracaoClientes.Domain.csproj" />
     <ProjectReference Include="..\Zup.AdministracaoClientes.Infra.CrossCutting.IoC\Zup.AdministracaoClientes.Infra.CrossCutting.IoC.csproj" />
+    <ProjectReference Include="..\Zup.AdministracaoClientes.Infra.CrossCutting.Swagger\Zup.AdministracaoClientes.Infra.CrossCutting.Swagger.csproj" />
   </ItemGroup>
 
 

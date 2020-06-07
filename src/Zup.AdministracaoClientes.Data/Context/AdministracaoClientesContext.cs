@@ -8,7 +8,9 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using Zup.AdministracaoClientes.Data.Context.Configuration;
+using Zup.AdministracaoClientes.Data.Types;
 using Zup.AdministracaoClientes.Domain.Entities;
 using Zup.AdministracaoClientes.Domain.Entities.Base;
 
@@ -16,13 +18,18 @@ namespace Zup.AdministracaoClientes.Data.Context
 {
     public class AdministracaoClientesContext : DbContext
     {
-        public const string DatabaseName = "AdministracaoClientes";
+        public const string DATABASE_NAME = "AdministracaoClientes";
+
+        private readonly ConnectionStringsType _connectionStrings;
 
         public static readonly LoggerFactory _debugLoggerFactory = new LoggerFactory(new[] { new DebugLoggerProvider() });
 
-        public AdministracaoClientesContext(DbContextOptions options)
-            : base(options)
+        public AdministracaoClientesContext(
+                            DbContextOptions options,
+                            IOptions<ConnectionStringsType> _optionsConnectionStrings)
+                        : base(options)
         {
+            _connectionStrings = _optionsConnectionStrings.Value;
         }
 
         public DbSet<Cliente> Clientes { get; set; }
@@ -38,15 +45,10 @@ namespace Zup.AdministracaoClientes.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            IConfigurationRoot config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
-
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(config.GetConnectionString(nameof(AdministracaoClientesContext)))
-                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                optionsBuilder.UseSqlServer(_connectionStrings.AdministracaoClientesContext)
+                              .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             }
 
             optionsBuilder.EnableSensitiveDataLogging();
@@ -73,7 +75,7 @@ namespace Zup.AdministracaoClientes.Data.Context
             {
                 if (!(entry.Entity is EntityBase trackableEntity))
                     return;
-                
+
                 switch (entry.State)
                 {
                     case EntityState.Added:

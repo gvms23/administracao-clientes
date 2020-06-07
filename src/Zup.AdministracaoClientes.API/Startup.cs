@@ -12,8 +12,10 @@ using Newtonsoft.Json.Serialization;
 using Zup.AdministracaoClientes.API.Configurations;
 using Zup.AdministracaoClientes.API.Types;
 using Zup.AdministracaoClientes.Data.Context;
+using Zup.AdministracaoClientes.Data.Types;
 using Zup.AdministracaoClientes.Domain.Types;
 using Zup.AdministracaoClientes.Infra.CrossCutting.IoC;
+using Zup.AdministracaoClientes.Infra.CrossCutting.Swagger;
 
 namespace Zup.AdministracaoClientes.API
 {
@@ -29,13 +31,14 @@ namespace Zup.AdministracaoClientes.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var _applicationSettings = Configuration.GetSection(nameof(ApplicationSettingsType.Key)).Get<ApplicationSettingsType>();
+            ApplicationSettingsType _applicationSettings = Configuration.GetSection(ApplicationSettingsType.KEY)
+                                                                        .Get<ApplicationSettingsType>();
             
             // In Memory
             if (_applicationSettings.TestInMemoryDatabase)
             {
                 services.AddDbContext<AdministracaoClientesContext>(opt =>
-                    opt.UseInMemoryDatabase(AdministracaoClientesContext.DatabaseName));
+                    opt.UseInMemoryDatabase(AdministracaoClientesContext.DATABASE_NAME));
             }
             else
                 services.AddDbContext<AdministracaoClientesContext>();
@@ -83,8 +86,6 @@ namespace Zup.AdministracaoClientes.API
              * Ref: https://www.talkingdotnet.com/support-multiple-versions-of-asp-net-core-web-api/
              */
 
-
-
             RegisterOptions(services);
 
             services.AddApiVersioning(options =>
@@ -95,6 +96,7 @@ namespace Zup.AdministracaoClientes.API
                 options.UseApiBehavior = false;
             });
 
+            services.AddSwaggerConfiguration();
 
             NativeInjector.RegisterServices(services);
         }
@@ -114,20 +116,20 @@ namespace Zup.AdministracaoClientes.API
 
             app.UseAuthentication();
 
+            app.UseSwaggerConfiguration();
+
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
 
         private void RegisterOptions(IServiceCollection services)
         {
-            services.Configure<ApplicationSettingsType>(Configuration.GetSection(ApplicationSettingsType.Key));
-            services.Configure<CPFBlacklistType>(Configuration.GetSection(CPFBlacklistType.Key));
+            services.Configure<ApplicationSettingsType>(Configuration.GetSection(ApplicationSettingsType.KEY));
+            services.Configure<CPFBlacklistType>(Configuration.GetSection(CPFBlacklistType.KEY));
+            services.Configure<ConnectionStringsType>(Configuration.GetSection(ConnectionStringsType.KEY));
         }
     }
 }

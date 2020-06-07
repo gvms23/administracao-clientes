@@ -2,7 +2,7 @@
 {
     public class ApplicationSettingsType
     {
-        public const string Key = "ApplicationSettings";
+        public const string KEY = "ApplicationSettings";
 
         public short? ApiVersion { get; set; }
         public bool TestInMemoryDatabase { get; set; }

@@ -1,59 +1,43 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using Zup.AdministracaoClientes.Domain.ValueObjects.Base;
 
 namespace Zup.AdministracaoClientes.Domain.ValueObjects
 {
-    public struct CPF : IValueObject
+    [Owned]
+    public class CPF : IValueObject
     {
-        private readonly string _value;
-
-        public CPF(string value)
+        protected CPF()
         {
-            value = value?.Replace(".", string.Empty)
-                .Replace(".", string.Empty)
-                .Replace("-", string.Empty);
-
-            _value = value;
+            // EFCore.
+            Value = Value?.Replace(".", string.Empty)
+                          .Replace("-", string.Empty);
         }
 
-        public static implicit operator CPF(string value)
+        public CPF(string cpf)
         {
-            return new CPF(value);
+            Value = cpf?.Replace(".", string.Empty)
+                        .Replace("-", string.Empty);
         }
+        public string Value { get; set; }
 
-        public static bool operator ==(CPF value1, CPF value2)
-        {
-            return value1._value.Equals(value2._value);
-        }
+        public string Formatado => string.IsNullOrEmpty(Value) || Invalid
+            ? null
+            : Convert.ToUInt64(Value).ToString(@"000\.000\.000\-00");
 
-        public static bool operator !=(CPF value1, CPF value2)
-        {
-            return !(value1._value.Equals(value2._value));
-        }
+        public ulong? SemPontuacao => Valid ? Convert.ToUInt64(Value) : (ulong?)null;
 
-        public string Formatado
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_value) || Invalid)
-                    return null;
-                return Convert.ToUInt64(_value).ToString(@"000\.000\.000\-00");
-            }
-        }
-
-        public ulong? SemPontuacao => Valid ? Convert.ToUInt64(_value) : (ulong?)null;
-
-        public int Length => string.IsNullOrEmpty(_value) ? 0 : _value.Length;
+        public int Length => string.IsNullOrEmpty(Value) ? 0 : Value.Length;
 
         public bool Valid => IsValid();
 
         public bool Invalid => !IsValid();
 
-        public bool Empty => string.IsNullOrWhiteSpace(_value) || _value.Length == 0;
+        public bool Empty => string.IsNullOrWhiteSpace(Value) || Value.Length == 0;
 
         private bool IsValid()
         {
-            var _valueToValidate = _value;
+            var _valueToValidate = Value;
             if (string.IsNullOrEmpty(_valueToValidate))
                 return false;
 
@@ -100,21 +84,6 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
             return _valueToValidate.EndsWith(digito);
         }
 
-        public override string ToString()
-        {
-            return _value;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj != null && _value.Equals(((CPF)obj)._value);
-        }
-
-        public bool Equals(CPF other)
-        {
-            return string.Equals(_value, other._value);
-        }
-
-        public override int GetHashCode() => _value != null ? _value.GetHashCode() : 0;
+        public override string ToString() => SemPontuacao.ToString();
     }
 }

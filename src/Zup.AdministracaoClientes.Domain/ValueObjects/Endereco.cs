@@ -1,7 +1,9 @@
-﻿using Zup.AdministracaoClientes.Domain.ValueObjects.Base;
+﻿using Microsoft.EntityFrameworkCore;
+using Zup.AdministracaoClientes.Domain.ValueObjects.Base;
 
 namespace Zup.AdministracaoClientes.Domain.ValueObjects
 {
+    [Owned]
     public class Endereco : IValueObject
     {
         private Endereco() { }
@@ -21,7 +23,7 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
             Cidade = cidade;
             Estado = estado;
             Pais = pais;
-            CEP = cep;
+            CEP = new CEP(cep);
         }
 
         public string Rua { get; }
@@ -30,6 +32,7 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
         public string Cidade { get; }
         public string Estado { get; }
         public string Pais { get; }
+
         public CEP CEP { get; }
 
         public bool Empty => string.IsNullOrEmpty(Rua)

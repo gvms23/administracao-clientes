@@ -56,9 +56,6 @@ namespace Zup.AdministracaoClientes.API.Controllers
         {
             List<Cliente> _result = await _clienteRepository.Get();
 
-            if (!_result.Any())
-                return NoContent();
-
             return Ok(_result);
         }
     }

@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using Zup.AdministracaoClientes.Domain.ValueObjects.Base;
 
 namespace Zup.AdministracaoClientes.Domain.ValueObjects
 {
     public class Telefone : IValueObject
     {
-        private readonly long? _value;
+        public long Value { get; private set; }
+
+        protected Telefone()
+        {
+            // EF Core.
+        }
 
         public Telefone(long value)
         {
-            _value = value;
+            Value = value;
         }
 
         public static implicit operator Telefone(long value)
@@ -19,33 +22,19 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
             return new Telefone(value);
         }
 
-        public static bool operator ==(Telefone value1, Telefone value2)
-        {
-            return value1 != null 
-                   && value2 != null 
-                   && value1._value.Equals(value2._value);
-        }
-
-        public static bool operator !=(Telefone value1, Telefone value2)
-        {
-            return value1 != null 
-                   && value2 != null
-                   && !value1._value.Equals(value2._value);
-        }
-
-        public int Length => _value.ToString().Length;
+        public int Length => Value.ToString().Length;
 
         public bool Valid => IsValid();
 
         public bool Invalid => !IsValid();
 
-        public bool IsMobile => _value.ToString().Length == 9 || _value.ToString().Length == 11;
+        public bool IsMobile => Value.ToString().Length == 9 || Value.ToString().Length == 11;
 
         public int? DDD
         {
             get
             {
-                var stringValue = _value.ToString();
+                var stringValue = Value.ToString();
 
                 if (stringValue.Length <= 8 || stringValue.Length == 9)
                     return null;
@@ -58,30 +47,30 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
         {
             get
             {
-                var stringValue = _value.ToString();
+                var stringValue = Value.ToString();
                 if (string.IsNullOrEmpty(stringValue)) return null;
 
                 switch (stringValue.Length)
                 {
                     case 8:
-                        return Convert.ToUInt64(_value).ToString(@"0000-0000");
+                        return Convert.ToUInt64(Value).ToString(@"0000-0000");
                     case 9:
-                        return Convert.ToUInt64(_value).ToString(@"00000-0000");
+                        return Convert.ToUInt64(Value).ToString(@"00000-0000");
                     case 10:
-                        return Convert.ToUInt64(_value).ToString(@"(00) 0000-0000");
+                        return Convert.ToUInt64(Value).ToString(@"(00) 0000-0000");
                     case 11:
-                        return Convert.ToUInt64(_value).ToString(@"(00) 00000-0000");
+                        return Convert.ToUInt64(Value).ToString(@"(00) 00000-0000");
                     default:
                         return null;
                 }
             }
         }
 
-        public bool Empty => _value.HasValue == false;
+        public bool Empty => Value == default;
 
         private bool IsValid()
         {
-            var stringValue = _value.ToString();
+            var stringValue = Value.ToString();
 
             if (string.IsNullOrEmpty(stringValue))
                 return false;
@@ -92,21 +81,6 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
                 || stringValue.Length == 11; // Celular com DDD
         }
 
-        public override string ToString()
-        {
-            return _value.ToString();
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj != null && _value.Equals(((Telefone)obj)._value);
-        }
-
-        public bool Equals(Telefone other)
-        {
-            return _value == other._value;
-        }
-
-        public override int GetHashCode() => _value.GetHashCode();
+        public override string ToString() => Value == default ? null : Value.ToString();
     }
 }
