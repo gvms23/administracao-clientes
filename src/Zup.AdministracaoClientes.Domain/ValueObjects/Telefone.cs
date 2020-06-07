@@ -39,7 +39,7 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
 
         public bool Invalid => !IsValid();
 
-        public bool IsMobile => _value.ToString().Length == 9;
+        public bool IsMobile => _value.ToString().Length == 9 || _value.ToString().Length == 11;
 
         public int? DDD
         {

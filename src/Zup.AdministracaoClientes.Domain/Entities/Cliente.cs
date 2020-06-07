@@ -6,22 +6,23 @@ namespace Zup.AdministracaoClientes.Domain.Entities
 {
     public class Cliente : EntityBase
     {
+        protected Cliente()
+        {
+            // EF
+        }
         public Cliente(string nome, string cpf)
         {
             Nome = nome;
             CPF = new CPF(cpf);
-
-            Enderecos = new List<Endereco>();
-            Telefones = new List<Telefone>();
         }
 
         public string Nome { get; set; }
 
         public CPF CPF { get; set; }
 
-        public ICollection<Endereco> Enderecos { get; private set; }
+        public ICollection<Endereco> Enderecos { get; } = new List<Endereco>();
 
-        public ICollection<Telefone> Telefones { get; private set; }
+        public ICollection<Telefone> Telefones { get; } = new List<Telefone>();
 
         public void AdicionarEnderecos(params Endereco[] enderecos)
         {

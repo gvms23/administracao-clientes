@@ -41,6 +41,8 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
             }
         }
 
+        public ulong? SemPontuacao => Valid ? Convert.ToUInt64(_value) : (ulong?)null;
+
         public int Length => string.IsNullOrEmpty(_value) ? 0 : _value.Length;
 
         public bool Valid => IsValid();

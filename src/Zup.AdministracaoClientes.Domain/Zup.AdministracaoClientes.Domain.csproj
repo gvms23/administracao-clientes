@@ -8,4 +8,8 @@
     <PackageReference Include="FluentValidation" Version="8.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Zup.AdministracaoClientes.Infra.CrossCutting.Helpers\Zup.AdministracaoClientes.Infra.CrossCutting.Helpers.csproj" />
+  </ItemGroup>
+
 </Project>
