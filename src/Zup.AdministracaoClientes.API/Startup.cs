@@ -11,6 +11,7 @@ using Newtonsoft.Json.Serialization;
 using Zup.AdministracaoClientes.API.Configurations;
 using Zup.AdministracaoClientes.API.Types;
 using Zup.AdministracaoClientes.Domain.Types;
+using Zup.AdministracaoClientes.Infra.CrossCutting.IoC;
 
 namespace Zup.AdministracaoClientes.API
 {
@@ -69,8 +70,8 @@ namespace Zup.AdministracaoClientes.API
              * Ref: https://www.talkingdotnet.com/support-multiple-versions-of-asp-net-core-web-api/
              */
 
-            short? _apiVersion = Configuration.GetSection(nameof(ApplicationSettings))
-                                             ?.Get<ApplicationSettings>()
+            short? _apiVersion = Configuration.GetSection(nameof(ApplicationSettingsType.Key))
+                                             ?.Get<ApplicationSettingsType>()
                                              ?.ApiVersion;
 
             RegisterOptions(services);
@@ -82,6 +83,9 @@ namespace Zup.AdministracaoClientes.API
                 options.DefaultApiVersion = new ApiVersion(_apiVersion ?? 1, 0);
                 options.UseApiBehavior = false;
             });
+
+
+            NativeInjector.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

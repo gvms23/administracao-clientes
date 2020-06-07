@@ -8,7 +8,6 @@ namespace Zup.AdministracaoClientes.Domain.Interfaces.Repositories
     public interface IRepository<TEntity> : IDisposable where TEntity : class
     {
         TEntity Create(TEntity model);
-        Task<TEntity> CreateAsync(TEntity model);
 
         void Update(TEntity model);
 

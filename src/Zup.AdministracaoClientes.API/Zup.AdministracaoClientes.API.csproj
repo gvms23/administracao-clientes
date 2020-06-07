@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Zup.AdministracaoClientes.Domain\Zup.AdministracaoClientes.Domain.csproj" />
+    <ProjectReference Include="..\Zup.AdministracaoClientes.Infra.CrossCutting.IoC\Zup.AdministracaoClientes.Infra.CrossCutting.IoC.csproj" />
   </ItemGroup>
 
 
