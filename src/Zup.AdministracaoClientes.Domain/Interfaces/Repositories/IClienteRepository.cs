@@ -1,9 +1,11 @@
-﻿using Zup.AdministracaoClientes.Domain.Entities;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Zup.AdministracaoClientes.Domain.Entities;
 
 namespace Zup.AdministracaoClientes.Domain.Interfaces.Repositories
 {
-    public interface IClienteRepository
+    public interface IClienteRepository: IRepository<Cliente>
     {
-        Cliente Cadastrar(Cliente cliente);
+        Task<List<Cliente>> Get();
     }
 }

@@ -1,8 +1,12 @@
 ﻿using FluentValidation.Results;
+using Microsoft.Extensions.Options;
 using System;
+using System.Threading.Tasks;
 using Zup.AdministracaoClientes.Domain.Entities;
 using Zup.AdministracaoClientes.Domain.Interfaces.Repositories;
 using Zup.AdministracaoClientes.Domain.Interfaces.Services;
+using Zup.AdministracaoClientes.Domain.Interfaces.UoW;
+using Zup.AdministracaoClientes.Domain.Types;
 using Zup.AdministracaoClientes.Domain.Validations;
 using Zup.AdministracaoClientes.Infra.CrossCutting.Helpers;
 
@@ -10,21 +14,24 @@ namespace Zup.AdministracaoClientes.Domain.Services
 {
     public class ClienteService : IClienteService
     {
-        private readonly IBlacklistRepository _blacklistRepository;
         private readonly IClienteRepository _clienteRepository;
+        private readonly IUnitOfWork _uow;
         private readonly ClienteValidator _clienteValidator;
+        private readonly CPFBlacklistType _cpfBlacklist;
 
         public ClienteService(
-            IBlacklistRepository blacklistRepository,
-            IClienteRepository clienteRepository)
+            IClienteRepository clienteRepository,
+            IUnitOfWork uow,
+            IOptions<CPFBlacklistType> _optionsBlacklist)
         {
-            _blacklistRepository = blacklistRepository;
             _clienteRepository = clienteRepository;
+            _uow = uow;
+            _cpfBlacklist = _optionsBlacklist.Value;
 
             _clienteValidator = new ClienteValidator();
         }
 
-        public Cliente Cadastrar(Cliente cliente)
+        public async Task<Cliente> Cadastrar(Cliente cliente)
         {
             ValidationResult _clienteValidation = _clienteValidator.Validate(cliente);
 
@@ -34,12 +41,14 @@ namespace Zup.AdministracaoClientes.Domain.Services
             if (CPFEstaNaBlacklist(cliente.CPF.SemPontuacao))
                 throw new Exception("CPF não permitido");
 
-            cliente = _clienteRepository.Cadastrar(cliente);
+            cliente = _clienteRepository.Create(cliente);
+
+            await _uow.CommitAsync();
 
             return cliente;
         }
 
         private bool CPFEstaNaBlacklist(ulong? cpf) =>
-            cpf.HasValue && _blacklistRepository.Exists(cpf.Value);
+            cpf.HasValue && _cpfBlacklist.CPFs.Contains(cpf.Value.ToString());
     }
 }

@@ -1,9 +1,10 @@
-﻿using Zup.AdministracaoClientes.Domain.Entities;
+﻿using System.Threading.Tasks;
+using Zup.AdministracaoClientes.Domain.Entities;
 
 namespace Zup.AdministracaoClientes.Domain.Interfaces.Services
 {
     public interface IClienteService
     {
-        Cliente Cadastrar(Cliente cliente);
+        Task<Cliente> Cadastrar(Cliente cliente);
     }
 }

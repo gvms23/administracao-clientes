@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Zup.AdministracaoClientes.API.Configurations;
+using Zup.AdministracaoClientes.API.Types;
+using Zup.AdministracaoClientes.Domain.Types;
 
 namespace Zup.AdministracaoClientes.API
 {
@@ -71,6 +73,8 @@ namespace Zup.AdministracaoClientes.API
                                              ?.Get<ApplicationSettings>()
                                              ?.ApiVersion;
 
+            RegisterOptions(services);
+
             services.AddApiVersioning(options =>
             {
                 options.ReportApiVersions = true;
@@ -103,6 +107,12 @@ namespace Zup.AdministracaoClientes.API
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void RegisterOptions(IServiceCollection services)
+        {
+            services.Configure<ApplicationSettingsType>(Configuration.GetSection(ApplicationSettingsType.Key));
+            services.Configure<CPFBlacklistType>(Configuration.GetSection(CPFBlacklistType.Key));
         }
     }
 }

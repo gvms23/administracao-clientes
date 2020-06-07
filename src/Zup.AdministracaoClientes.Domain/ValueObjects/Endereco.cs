@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Zup.AdministracaoClientes.Domain.ValueObjects.Base;
+﻿using Zup.AdministracaoClientes.Domain.ValueObjects.Base;
 
 namespace Zup.AdministracaoClientes.Domain.ValueObjects
 {
