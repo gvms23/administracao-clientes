@@ -28,10 +28,10 @@ namespace Zup.AdministracaoClientes.API.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(List<Cliente>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Cliente), StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateCliente([FromBody] CadastrarClienteViewModel cliente)
         {
-            Cliente _cliente = new Cliente(cliente.Nome, cliente.CPF);
+            Cliente _cliente = new Cliente(cliente.Nome, cliente.CPF, cliente.Email);
 
             foreach (var endereco in cliente.Enderecos)
                 _cliente.AdicionarEnderecos(new Endereco(
@@ -54,7 +54,7 @@ namespace Zup.AdministracaoClientes.API.Controllers
         [ProducesResponseType(typeof(List<Cliente>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetClientes()
         {
-            List<Cliente> _result = await _clienteRepository.Get();
+            List<Cliente> _result = await _clienteRepository.GetAsync();
 
             return Ok(_result);
         }

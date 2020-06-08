@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Diagnostics;
 using Zup.AdministracaoClientes.Domain.ValueObjects.Base;
 
 namespace Zup.AdministracaoClientes.Domain.ValueObjects
@@ -7,7 +8,11 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
     [Owned]
     public class CPF : IValueObject
     {
-        protected CPF()
+
+        public override bool Equals(object obj)
+            => obj != null && SemPontuacao == (ulong)obj;
+
+        public CPF()
         {
             // EFCore.
             Value = Value?.Replace(".", string.Empty)
@@ -19,13 +24,14 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
             Value = cpf?.Replace(".", string.Empty)
                         .Replace("-", string.Empty);
         }
-        public string Value { get; set; }
+
+        public string Value { get; protected set; }
 
         public string Formatado => string.IsNullOrEmpty(Value) || Invalid
             ? null
             : Convert.ToUInt64(Value).ToString(@"000\.000\.000\-00");
 
-        public ulong? SemPontuacao => Valid ? Convert.ToUInt64(Value) : (ulong?)null;
+        public ulong SemPontuacao => Convert.ToUInt64(Value);
 
         public int Length => string.IsNullOrEmpty(Value) ? 0 : Value.Length;
 

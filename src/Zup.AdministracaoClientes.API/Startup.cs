@@ -118,7 +118,6 @@ namespace Zup.AdministracaoClientes.API
 
             app.UseSwaggerConfiguration();
 
-            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
 

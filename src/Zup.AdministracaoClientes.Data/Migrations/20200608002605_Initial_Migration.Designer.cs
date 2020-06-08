@@ -10,7 +10,7 @@ using Zup.AdministracaoClientes.Data.Context;
 namespace Zup.AdministracaoClientes.Data.Migrations
 {
     [DbContext(typeof(AdministracaoClientesContext))]
-    [Migration("20200607204356_Initial_Migration")]
+    [Migration("20200608002605_Initial_Migration")]
     partial class Initial_Migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,6 +62,25 @@ namespace Zup.AdministracaoClientes.Data.Migrations
                                 .HasColumnName("CPF")
                                 .HasColumnType("varchar(11)")
                                 .HasMaxLength(11);
+
+                            b1.HasKey("ClienteId");
+
+                            b1.ToTable("Cliente");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ClienteId");
+                        });
+
+                    b.OwnsOne("Zup.AdministracaoClientes.Domain.ValueObjects.Email", "Email", b1 =>
+                        {
+                            b1.Property<Guid>("ClienteId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnName("Email")
+                                .HasColumnType("varchar(320)")
+                                .HasMaxLength(320);
 
                             b1.HasKey("ClienteId");
 

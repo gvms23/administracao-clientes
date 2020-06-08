@@ -6,6 +6,10 @@ namespace Zup.AdministracaoClientes.Domain.Interfaces.Repositories
 {
     public interface IClienteRepository: IRepository<Cliente>
     {
-        Task<List<Cliente>> Get();
+        Task<List<Cliente>> GetAsync();
+
+        Task<bool> CPFJaEmUsoAsync(ulong cpfSemPontuacao);
+
+        Task<bool> EmailJaEmUsoAsync(string email);
     }
 }

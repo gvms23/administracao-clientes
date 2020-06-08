@@ -16,7 +16,8 @@ namespace Zup.AdministracaoClientes.Data.Migrations
                     CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "GETDATE()"),
                     ModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true),
                     Nome = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
-                    CPF = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: true)
+                    CPF = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: false),
+                    Email = table.Column<string>(type: "varchar(320)", maxLength: 320, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,7 +37,7 @@ namespace Zup.AdministracaoClientes.Data.Migrations
                     Cidade = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false),
                     Estado = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
                     Pais = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false),
-                    CEP = table.Column<string>(type: "varchar(100)", nullable: true)
+                    CEP = table.Column<string>(type: "varchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {

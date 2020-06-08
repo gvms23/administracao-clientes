@@ -17,7 +17,13 @@ namespace Zup.AdministracaoClientes.Data.Repositories
         {
         }
 
-        public Task<List<Cliente>> Get()
-               => Query(wh => !wh.IsDeleted).ToListAsync();
+        public async Task<List<Cliente>> GetAsync()
+            => await Query(wh => !wh.IsDeleted).ToListAsync();
+
+        public async Task<bool> CPFJaEmUsoAsync(ulong cpfSemPontuacao) 
+            => await Query(wh => wh.CPF.Value == cpfSemPontuacao.ToString()).AnyAsync();
+
+        public async Task<bool> EmailJaEmUsoAsync(string email) 
+            => await Query(wh => wh.Email.Value == email).AnyAsync();
     }
 }

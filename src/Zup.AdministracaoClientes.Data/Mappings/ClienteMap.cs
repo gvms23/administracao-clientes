@@ -25,6 +25,13 @@ namespace Zup.AdministracaoClientes.Data.Mappings
                                     .HasMaxLength(11)
                                     .IsRequired());
 
+            builder.OwnsOne(e => e.Email,
+                builderCPF =>
+                    builderCPF.Property(c => c.Value)
+                        .HasColumnName(nameof(Email))
+                        .HasMaxLength(320) /* https://tools.ietf.org/html/rfc3696#page-7 */
+                        .IsRequired());
+
             // Telefones
             builder.OwnsMany(c => c.Telefones,
                 builderTelefone =>

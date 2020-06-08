@@ -38,6 +38,12 @@ namespace Zup.AdministracaoClientes.Domain.Services
             if (!_clienteValidation.IsValid)
                 throw new Exception(_clienteValidation.GetValidationMessage());
 
+            if (await _clienteRepository.CPFJaEmUsoAsync(cliente.CPF.SemPontuacao))
+                throw new Exception("Já existe um cadastro com o CPF informado");
+
+            if (await _clienteRepository.EmailJaEmUsoAsync(cliente.Email.Value))
+                throw new Exception("Já existe um cadastro com o e-mail informado");
+
             if (CPFEstaNaBlacklist(cliente.CPF.SemPontuacao))
                 throw new Exception("CPF não permitido");
 

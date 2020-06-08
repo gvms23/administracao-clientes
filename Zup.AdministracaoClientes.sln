@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{52F4BC75-A709-4FEE-BACA-B0CA366A0697}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		Instruções.txt = Instruções.txt
+	EndProjectSection
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zup.AdministracaoClientes.API", "src\Zup.AdministracaoClientes.API\Zup.AdministracaoClientes.API.csproj", "{0DFC7FED-8683-48F8-BC00-ADBA0BBBA71F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - API", "01 - API", "{029B0490-1BF8-44CB-995A-26E4F4BA434E}"
@@ -27,14 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zup.AdministracaoClientes.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zup.AdministracaoClientes.Infra.CrossCutting.IoC", "src\Zup.AdministracaoClientes.Infra.CrossCutting.IoC\Zup.AdministracaoClientes.Infra.CrossCutting.IoC.csproj", "{5BAC5B46-C8D7-4F5E-ABA7-7D4A66F87B87}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{52F4BC75-A709-4FEE-BACA-B0CA366A0697}"
-	ProjectSection(SolutionItems) = preProject
-		src\Zup.AdministracaoClientes.API\.dockerignore = src\Zup.AdministracaoClientes.API\.dockerignore
-		docker-compose.yml = docker-compose.yml
-		Instruções.txt = Instruções.txt
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zup.AdministracaoClientes.Infra.CrossCutting.Swagger", "src\Zup.AdministracaoClientes.Infra.CrossCutting.Swagger\Zup.AdministracaoClientes.Infra.CrossCutting.Swagger.csproj", "{11F3421F-8D68-46FC-9464-E92C561E98BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zup.AdministracaoClientes.Infra.CrossCutting.Swagger", "src\Zup.AdministracaoClientes.Infra.CrossCutting.Swagger\Zup.AdministracaoClientes.Infra.CrossCutting.Swagger.csproj", "{11F3421F-8D68-46FC-9464-E92C561E98BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

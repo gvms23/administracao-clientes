@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Zup.AdministracaoClientes.API.ViewModels
 {
@@ -9,10 +6,12 @@ namespace Zup.AdministracaoClientes.API.ViewModels
     {
         public string Nome { get; set; }
 
+        public string Email { get; set; }
+
         public string CPF { get; set; }
 
-        public IEnumerable<EnderecoViewModel> Enderecos { get; } = new List<EnderecoViewModel>();
+        public IEnumerable<EnderecoViewModel> Enderecos { get; set; } = new List<EnderecoViewModel>();
 
-        public IEnumerable<long> Telefones { get; } = new List<long>();
+        public IEnumerable<long> Telefones { get; set; } = new List<long>();
     }
 }

@@ -5,28 +5,24 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
 {
     public class Telefone : IValueObject
     {
-        public long Value { get; private set; }
 
-        protected Telefone()
-        {
-            // EF Core.
-        }
+        protected Telefone() { }
 
         public Telefone(long value)
         {
             Value = value;
         }
 
-        public static implicit operator Telefone(long value)
-        {
-            return new Telefone(value);
-        }
+        public long Value { get; protected set; }
+
 
         public int Length => Value.ToString().Length;
 
         public bool Valid => IsValid();
 
         public bool Invalid => !IsValid();
+
+        public bool Empty => Value == default;
 
         public bool IsMobile => Value.ToString().Length == 9 || Value.ToString().Length == 11;
 
@@ -65,8 +61,6 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
                 }
             }
         }
-
-        public bool Empty => Value == default;
 
         private bool IsValid()
         {

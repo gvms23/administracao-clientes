@@ -43,7 +43,7 @@ namespace Zup.AdministracaoClientes.Infra.CrossCutting.Swagger
                         .UseSwaggerUI(c =>
                         {
                             // Rota para acessar a documentação.
-                            c.RoutePrefix = "documentation";
+                            c.RoutePrefix = "docs";
                             c.SwaggerEndpoint("../swagger/v1/swagger.json", "Documentação API v1");
                         });
         }

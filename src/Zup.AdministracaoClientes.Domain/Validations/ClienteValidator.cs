@@ -19,6 +19,10 @@ namespace Zup.AdministracaoClientes.Domain.Validations
             RuleFor(c => c.CPF)
                 .Must(m => m.Valid)
                 .WithMessage("O CPF fornecido é inválido");
+
+            RuleFor(c => c.Email)
+                .Must(m => m.Valid)
+                .WithMessage("O e-mail fornecido é inválido");
         }
     }
 }

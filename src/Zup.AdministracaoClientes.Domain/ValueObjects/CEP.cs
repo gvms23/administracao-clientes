@@ -7,12 +7,8 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
     [Owned]
     public class CEP : IValueObject
     {
-        public string Value { get; set; }
 
-        protected CEP()
-        {
-            // EFCore.
-        }
+        protected CEP() { }
 
         public CEP(string value)
         {
@@ -26,6 +22,8 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
             Value = value.Substring(0, 8);
         }
 
+        public string Value { get; protected set; }
+
         public string Formatado => string.IsNullOrEmpty(Value)
                                             ? null
                                             : Convert.ToUInt64(Value).ToString(@"00000\-000");
@@ -37,6 +35,9 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
         public bool Invalid => !IsValid();
 
         public bool Empty => string.IsNullOrWhiteSpace(Value) || Value.Length == 0;
+
+        public override string ToString() => Value;
+
 
         public bool IsValid()
         {
@@ -60,7 +61,5 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
                     return true;
             }
         }
-
-        public override string ToString() => Value;
     }
 }

@@ -16,9 +16,9 @@ namespace Zup.AdministracaoClientes.Tests.Clientes
         }
 
         [Fact(DisplayName = "Criação do Cliente (Dados Válidos)")]
-        public void CriacaoCliente_DadosValidos_RetornaVerdadeiro()
+        public void CriacaoInstancia_DadosValidos_RetornaVerdadeiro()
         {
-            var _cliente = new Cliente("João", "363.348.820-07");
+            var _cliente = new Cliente("João", "363.348.820-07", "joao@gmail.com");
 
             _cliente.AdicionarEnderecos(
                                 new Endereco("Av. São Jorge",
@@ -37,10 +37,10 @@ namespace Zup.AdministracaoClientes.Tests.Clientes
             Assert.True(_clienteValidation.IsValid, _clienteValidation.GetValidationMessage());
         }
 
-        [Fact(DisplayName = "Criação do Cliente (CPF Inválido)")]
-        public void CriacaoCliente_CPFInvalido_RetornaFalso()
+        [Fact(DisplayName = "Criação de Instância (CPF Inválido)")]
+        public void CriacaoInstancia_CPFInvalido_RetornaFalso()
         {
-            var _cliente = new Cliente("João", "123.456.555-87");
+            var _cliente = new Cliente("João", "123.456.555-87", "joao@gmail.com");
 
             _cliente.AdicionarEnderecos(
                                 new Endereco("Av. São Jorge",
@@ -59,10 +59,32 @@ namespace Zup.AdministracaoClientes.Tests.Clientes
             Assert.False(_clienteValidation.IsValid, _clienteValidation.GetValidationMessage());
         }
 
-        [Fact(DisplayName = "Criação do Cliente (Nenhum Endereço)")]
-        public void CriacaoCliente_NenhumEndereco_RetornaFalso()
+        [Fact(DisplayName = "Criação de Instância (E-mail Inválido)")]
+        public void CriacaoInstancia_EmailInvalido_RetornaFalso()
         {
-            var _cliente = new Cliente("João", "363.348.820-07");
+            var _cliente = new Cliente("João", "123.456.555-87", "l.com");
+
+            _cliente.AdicionarEnderecos(
+                new Endereco("Av. São Jorge",
+                    50,
+                    "Cidade Salvador",
+                    "Jacareí",
+                    "SP",
+                    "Brasil",
+                    "12312000"));
+
+            _cliente.AdicionarTelefones(
+                new Telefone(12985654585));
+
+            ValidationResult _clienteValidation = _clienteValidator.Validate(_cliente);
+
+            Assert.False(_clienteValidation.IsValid, _clienteValidation.GetValidationMessage());
+        }
+
+        [Fact(DisplayName = "Criação de Instância (Nenhum Endereço)")]
+        public void CriacaoInstancia_NenhumEndereco_RetornaFalso()
+        {
+            var _cliente = new Cliente("João", "363.348.820-07", "joao@gmail.com");
 
             _cliente.AdicionarTelefones(
                                 new Telefone(12985654585));
@@ -72,10 +94,10 @@ namespace Zup.AdministracaoClientes.Tests.Clientes
             Assert.False(_clienteValidation.IsValid, _clienteValidation.GetValidationMessage());
         }
 
-        [Fact(DisplayName = "Criação do Cliente (Nenhum Telefone)")]
-        public void CriacaoCliente_NenhumTelefone_RetornaFalso()
+        [Fact(DisplayName = "Criação de Instância (Nenhum Telefone)")]
+        public void CriacaoInstancia_NenhumTelefone_RetornaFalso()
         {
-            var _cliente = new Cliente("João", "363.348.820-07");
+            var _cliente = new Cliente("João", "363.348.820-07", "joao@gmail.com");
 
             _cliente.AdicionarEnderecos(
                                 new Endereco("Av. São Jorge",

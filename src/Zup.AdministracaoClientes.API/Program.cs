@@ -22,7 +22,6 @@ namespace Zup.AdministracaoClientes.API
                 {
                     webBuilder
                         .UseContentRoot(Directory.GetCurrentDirectory())
-                        .UseSetting("https_port", "443")
                         .UseIISIntegration()
                         .UseStartup<Startup>();
                 });

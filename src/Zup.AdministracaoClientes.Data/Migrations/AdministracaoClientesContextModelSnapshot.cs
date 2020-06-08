@@ -69,6 +69,25 @@ namespace Zup.AdministracaoClientes.Data.Migrations
                                 .HasForeignKey("ClienteId");
                         });
 
+                    b.OwnsOne("Zup.AdministracaoClientes.Domain.ValueObjects.Email", "Email", b1 =>
+                        {
+                            b1.Property<Guid>("ClienteId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnName("Email")
+                                .HasColumnType("varchar(320)")
+                                .HasMaxLength(320);
+
+                            b1.HasKey("ClienteId");
+
+                            b1.ToTable("Cliente");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ClienteId");
+                        });
+
                     b.OwnsMany("Zup.AdministracaoClientes.Domain.ValueObjects.Endereco", "Enderecos", b1 =>
                         {
                             b1.Property<Guid>("ClienteId")

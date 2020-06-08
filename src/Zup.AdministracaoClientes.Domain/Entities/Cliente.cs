@@ -11,15 +11,18 @@ namespace Zup.AdministracaoClientes.Domain.Entities
         {
             // EF
         }
-        public Cliente(string nome, string cpf)
+        public Cliente(string nome, string cpf, string email)
         {
             Nome = nome;
             CPF = new CPF(cpf);
+            Email = new Email(email);
         }
 
-        public string Nome { get; private set; }
+        public string Nome { get; }
 
-        public CPF CPF { get; private set; }
+        public CPF CPF { get; }
+
+        public Email Email { get; }
 
         public ICollection<Endereco> Enderecos { get; } = new List<Endereco>();
 
