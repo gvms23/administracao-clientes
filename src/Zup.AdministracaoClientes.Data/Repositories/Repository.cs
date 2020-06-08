@@ -64,9 +64,9 @@ namespace Zup.AdministracaoClientes.Data.Repositories
             entry.State = EntityState.Modified;
         }
 
-        public void Delete(TEntity model)
+        public void Delete(TEntity model, bool forcePhysicalDelete = false)
         {
-            if (model is EntityBase _entityBase)
+            if (!forcePhysicalDelete && model is EntityBase _entityBase)
             {
                 _entityBase.IsDeleted = true;
                 var _entry = _context.Entry(model);

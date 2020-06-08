@@ -11,7 +11,7 @@ namespace Zup.AdministracaoClientes.Domain.Interfaces.Repositories
 
         void Update(TEntity model);
 
-        void Delete(TEntity model);
+        void Delete(TEntity model, bool forcePhysicalDelete = false);
 
         Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> where);
 

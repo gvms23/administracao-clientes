@@ -71,7 +71,7 @@ namespace Zup.AdministracaoClientes.Domain.Services
                     StatusCodes.Status404NotFound,
                     "Nenhum cliente encontrado com o Id.");
 
-            _clienteRepository.Delete(_cliente);
+            _clienteRepository.Delete(_cliente, forcePhysicalDelete: true);
             await _uow.CommitAsync();
         }
 
