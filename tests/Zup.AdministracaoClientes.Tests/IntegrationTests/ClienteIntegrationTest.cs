@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Newtonsoft.Json.Linq;
 using Xunit;
 using Zup.AdministracaoClientes.API;
@@ -17,7 +18,6 @@ using Zup.AdministracaoClientes.API.ViewModels;
 
 namespace Zup.AdministracaoClientes.Tests.IntegrationTests
 {
-    [Obsolete("[WIP] Work in progress - não utilizar por ora")]
     public class ClienteIntegrationTest
     {
         private readonly HttpClient _httpClient;
@@ -40,7 +40,7 @@ namespace Zup.AdministracaoClientes.Tests.IntegrationTests
             _httpClient = _server.CreateClient();
         }
 
-        [Fact(DisplayName = "Cadastrar Cliente Async")]
+        [Fact(DisplayName = "Cadastrar Cliente (Válido)")]
         public async Task CadastrarClientesAsync_Retorna201Created()
         {
             //Arrange
@@ -90,6 +90,174 @@ namespace Zup.AdministracaoClientes.Tests.IntegrationTests
             Assert.Equal(HttpStatusCode.Created, _response.StatusCode);
         }
 
+
+        [Fact(DisplayName = "Cadastrar Cliente (CPF Blacklist)")]
+        public async Task CadastrarClienteCPFBlacklistAsync_Retorna403Forbidden()
+        {
+
+            //Arrange
+            var _enderecos = new List<EnderecoViewModel>()
+            {
+                new EnderecoViewModel("Av. São Jorge",
+                    50,
+                    "Cidade Salvador",
+                    "Jacareí",
+                    "SP",
+                    "Brasil",
+                    "12312000")
+            };
+
+            var _telefones = new List<long>
+            {
+                12985654585
+            };
+
+            var _cliente = new CadastrarClienteViewModel(
+                nome: "Manoel da Silva",
+                email: "manoel.dasilva@gmail.com",
+                cpf: "775.945.550-07",
+                _enderecos,
+                _telefones);
+
+            var _content = new StringContent(
+                JsonConvert.SerializeObject(_cliente),
+                Encoding.UTF8,
+                MediaTypeNames.Application.Json);
+
+
+            HttpRequestMessage _request = new HttpRequestMessage(
+                HttpMethod.Post, "/api/v1/clientes")
+            {
+                Content = _content
+            };
+
+            // Act
+            HttpResponseMessage _response = await _httpClient.SendAsync(_request);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.Forbidden, _response.StatusCode);
+        }
+
+        [Fact(DisplayName = "Cadastrar Cliente (CPF Duplicado)")]
+        public async Task CadastrarClienteCPFDuplicadoAsync_Retorna409Conflict()
+        {
+
+            //Arrange
+            var _enderecos = new List<EnderecoViewModel>()
+            {
+                new EnderecoViewModel("Av. São Jorge",
+                    50,
+                    "Cidade Salvador",
+                    "Jacareí",
+                    "SP",
+                    "Brasil",
+                    "12312000")
+            };
+
+            var _telefones = new List<long>
+            {
+                12985654585
+            };
+
+            var _cliente = new CadastrarClienteViewModel(
+                nome: "Joana da Silva",
+                email: "joana.dasilva@gmail.com",
+                cpf: "939.553.610-12",
+                _enderecos,
+                _telefones);
+
+
+            HttpRequestMessage _requestOne = new HttpRequestMessage(
+                HttpMethod.Post, "/api/v1/clientes")
+            {
+                Content = new StringContent(
+                    JsonConvert.SerializeObject(_cliente),
+                    Encoding.UTF8,
+                    MediaTypeNames.Application.Json)
+            };
+
+            // Executa a primeira vez
+            (await _httpClient.SendAsync(_requestOne)).EnsureSuccessStatusCode();
+
+            // Executa a segunda vez (força conflito)
+
+            _cliente.Email = "outro-email-sem-conflitos@gmail.com";
+
+            // CPF continua o mesmo
+            HttpRequestMessage _requestDuplicated = new HttpRequestMessage(
+                HttpMethod.Post, "/api/v1/clientes")
+            {
+                Content = new StringContent(
+                    JsonConvert.SerializeObject(_cliente),
+                    Encoding.UTF8,
+                    MediaTypeNames.Application.Json)
+            };
+            HttpResponseMessage _responseDuplicated = await _httpClient.SendAsync(_requestDuplicated);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.Conflict, _responseDuplicated.StatusCode);
+        }
+
+        [Fact(DisplayName = "Cadastrar Cliente (E-mail Duplicado)")]
+        public async Task CadastrarClienteEmailDuplicadoAsync_Retorna409Conflict()
+        {
+
+            //Arrange
+            var _enderecos = new List<EnderecoViewModel>()
+            {
+                new EnderecoViewModel("Av. São Jorge",
+                    50,
+                    "Cidade Salvador",
+                    "Jacareí",
+                    "SP",
+                    "Brasil",
+                    "12312000")
+            };
+
+            var _telefones = new List<long>
+            {
+                12985654585
+            };
+
+            var _cliente = new CadastrarClienteViewModel(
+                nome: "Ana da Silva",
+                email: "ana.dasilva@gmail.com",
+                cpf: "640.335.790-52",
+                _enderecos,
+                _telefones);
+
+
+            HttpRequestMessage _requestOne = new HttpRequestMessage(
+                HttpMethod.Post, "/api/v1/clientes")
+            {
+                Content = new StringContent(
+                    JsonConvert.SerializeObject(_cliente),
+                    Encoding.UTF8,
+                    MediaTypeNames.Application.Json)
+            };
+
+            // Executa a primeira vez
+            (await _httpClient.SendAsync(_requestOne)).EnsureSuccessStatusCode();
+
+            // Executa a segunda vez (força conflito)
+            _cliente.CPF = "871.232.500-79";
+
+            // E-mail continua o mesmo
+            HttpRequestMessage _requestDuplicated = new HttpRequestMessage(
+                HttpMethod.Post, "/api/v1/clientes")
+            {
+                Content = new StringContent(
+                    JsonConvert.SerializeObject(_cliente),
+                    Encoding.UTF8,
+                    MediaTypeNames.Application.Json)
+            };
+            HttpResponseMessage _responseDuplicated = await _httpClient.SendAsync(_requestDuplicated);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.Conflict, _responseDuplicated.StatusCode);
+        }
+
+
         [Fact(DisplayName = "Obter Clientes Async")]
         public async Task ObterClientesAsync_Retorna200Ok()
         {
@@ -104,6 +272,7 @@ namespace Zup.AdministracaoClientes.Tests.IntegrationTests
 
             Assert.Equal(HttpStatusCode.OK, _response.StatusCode);
         }
+
 
         [Fact(DisplayName = "Obter Cliente por Id Async")]
         public async Task ObterClientePorIdAsync_Retorna200Ok()
@@ -157,12 +326,78 @@ namespace Zup.AdministracaoClientes.Tests.IntegrationTests
 
             JObject _clienteObject = JObject.Parse(_resultCreate);
 
-            HttpRequestMessage _requestGetById = new HttpRequestMessage(HttpMethod.Get, $"/api/v1/clientes/{_clienteObject["id"]}"); 
+            HttpRequestMessage _requestGetById = new HttpRequestMessage(HttpMethod.Get, $"/api/v1/clientes/{_clienteObject["id"]}");
 
             #endregion
 
             // Act
             HttpResponseMessage _responseGetById = await _httpClient.SendAsync(_requestGetById);
+
+            // Assert
+            _responseGetById.EnsureSuccessStatusCode();
+
+            Assert.Equal(HttpStatusCode.OK, _responseGetById.StatusCode);
+        }
+
+
+        [Fact(DisplayName = "Excluir Cliente por Id Async")]
+        public async Task ExcluirClientePorIdAsync_Retorna200Ok()
+        {
+
+            //Arrange
+            #region Pre-arrange
+            var _enderecos = new List<EnderecoViewModel>()
+            {
+                new EnderecoViewModel("Av. São Jorge",
+                    50,
+                    "Cidade Salvador",
+                    "Jacareí",
+                    "SP",
+                    "Brasil",
+                    "12312000")
+            };
+
+            var _telefones = new List<long>
+            {
+                12985654585
+            };
+
+            var _cliente = new CadastrarClienteViewModel(
+                nome: "Manoel da Silva",
+                email: "manoel.dasilva@gmail.com",
+                cpf: "419.696.370-64",
+                _enderecos,
+                _telefones);
+
+            var _content = new StringContent(
+                JsonConvert.SerializeObject(_cliente),
+                Encoding.UTF8,
+                MediaTypeNames.Application.Json);
+
+
+            HttpRequestMessage _requestCreate = new HttpRequestMessage(
+                HttpMethod.Post, "/api/v1/clientes")
+            {
+                Content = _content
+            };
+
+            HttpResponseMessage _responseCreate = await _httpClient.SendAsync(_requestCreate);
+
+            _responseCreate.EnsureSuccessStatusCode();
+            #endregion
+
+            #region Arrange
+
+            string _resultCreate = await _responseCreate.Content.ReadAsStringAsync();
+
+            JObject _clienteObject = JObject.Parse(_resultCreate);
+
+            HttpRequestMessage _requestDeleteById = new HttpRequestMessage(HttpMethod.Delete, $"/api/v1/clientes/{_clienteObject["id"]}");
+
+            #endregion
+
+            // Act
+            HttpResponseMessage _responseGetById = await _httpClient.SendAsync(_requestDeleteById);
 
             // Assert
             _responseGetById.EnsureSuccessStatusCode();

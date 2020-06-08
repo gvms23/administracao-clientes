@@ -22,6 +22,15 @@ namespace Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler.Extensio
             StatusCode = statusCode;
         }
 
+        public ApiException(
+            int statusCode,
+            IEnumerable<string> messages
+        )
+        {
+            Messages = messages;
+            StatusCode = statusCode;
+        }
+
         public int StatusCode { get; set; }
 
         public IEnumerable<string> Messages { get; set; }

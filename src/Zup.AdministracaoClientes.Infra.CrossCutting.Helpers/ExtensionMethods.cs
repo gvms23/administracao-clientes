@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using System.Collections.Generic;
+using FluentValidation.Results;
 using Newtonsoft.Json;
 using System.Linq;
 using Newtonsoft.Json.Serialization;
@@ -14,6 +15,9 @@ namespace Zup.AdministracaoClientes.Infra.CrossCutting.Helpers
         /// <returns></returns>
         public static string GetValidationMessage(this ValidationResult validationResult)
             => string.Join(", ", validationResult.Errors.Select(s => s.ErrorMessage));
+
+        public static IEnumerable<string> GetValidationMessageAsList(this ValidationResult validationResult)
+            => validationResult.Errors.Select(s => s.ErrorMessage);
 
 
         public static string ToJson(this object obj)

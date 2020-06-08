@@ -60,6 +60,15 @@ namespace Zup.AdministracaoClientes.API.Controllers
             return Ok(_result);
         }
 
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await _clienteService.DeleteAsync(id);
+
+            return Ok();
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Cliente), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetClienteById(Guid id)

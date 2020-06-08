@@ -28,5 +28,8 @@ namespace Zup.AdministracaoClientes.Data.Repositories
 
         public async Task<bool> EmailJaEmUsoAsync(string email) 
             => await Query(wh => wh.Email.Value == email).AnyAsync();
+
+        public async Task<bool> ExisteComId(Guid id)
+            => await Query(wh => !wh.IsDeleted && wh.Id == id).AnyAsync();
     }
 }

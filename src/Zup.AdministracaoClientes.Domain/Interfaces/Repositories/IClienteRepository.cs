@@ -14,6 +14,7 @@ namespace Zup.AdministracaoClientes.Domain.Interfaces.Repositories
         Task<bool> CPFJaEmUsoAsync(ulong cpfSemPontuacao);
 
         Task<bool> EmailJaEmUsoAsync(string email);
-        
+
+        Task<bool> ExisteComId(Guid id);
     }
 }
