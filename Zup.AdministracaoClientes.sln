@@ -5,8 +5,9 @@ VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{52F4BC75-A709-4FEE-BACA-B0CA366A0697}"
 	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
+		docker-compose_old.yml = docker-compose_old.yml
 		Instruções.txt = Instruções.txt
+		Zup Administração Clientes.postman_collection.json = Zup Administração Clientes.postman_collection.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zup.AdministracaoClientes.API", "src\Zup.AdministracaoClientes.API\Zup.AdministracaoClientes.API.csproj", "{0DFC7FED-8683-48F8-BC00-ADBA0BBBA71F}"
@@ -35,7 +36,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zup.AdministracaoClientes.I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zup.AdministracaoClientes.Infra.CrossCutting.Swagger", "src\Zup.AdministracaoClientes.Infra.CrossCutting.Swagger\Zup.AdministracaoClientes.Infra.CrossCutting.Swagger.csproj", "{11F3421F-8D68-46FC-9464-E92C561E98BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler", "src\Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler\Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler.csproj", "{AB2E5705-55FD-4BB5-BE8B-75AD92B08AEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler", "src\Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler\Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler.csproj", "{AB2E5705-55FD-4BB5-BE8B-75AD92B08AEF}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8DE828F3-F263-4935-ACBB-FF9F6A5D4580}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +78,10 @@ Global
 		{AB2E5705-55FD-4BB5-BE8B-75AD92B08AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB2E5705-55FD-4BB5-BE8B-75AD92B08AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB2E5705-55FD-4BB5-BE8B-75AD92B08AEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DE828F3-F263-4935-ACBB-FF9F6A5D4580}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DE828F3-F263-4935-ACBB-FF9F6A5D4580}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DE828F3-F263-4935-ACBB-FF9F6A5D4580}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DE828F3-F263-4935-ACBB-FF9F6A5D4580}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

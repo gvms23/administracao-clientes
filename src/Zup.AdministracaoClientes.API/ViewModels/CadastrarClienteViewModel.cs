@@ -19,11 +19,11 @@ namespace Zup.AdministracaoClientes.API.ViewModels
             Telefones = telefones ?? new List<long>();
         }
 
-        public string Nome { get; protected set; }
+        public string Nome { get; set; }
 
-        public string Email { get; protected set; }
+        public string Email { get; set; }
 
-        public string CPF { get; protected set; }
+        public string CPF { get; set; }
 
         public IEnumerable<EnderecoViewModel> Enderecos { get; set; } = new List<EnderecoViewModel>();
 

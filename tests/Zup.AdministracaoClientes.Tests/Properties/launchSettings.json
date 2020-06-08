@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Zup.AdministracaoClientes.Tests": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

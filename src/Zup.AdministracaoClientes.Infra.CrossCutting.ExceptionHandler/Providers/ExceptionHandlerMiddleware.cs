@@ -18,16 +18,16 @@ namespace Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler.Provider
             {
                 ExceptionHandler = async context =>
                 {
-                    IExceptionHandlerPathFeature _throwedException = context.Features.Get<IExceptionHandlerPathFeature>();
+                    IExceptionHandlerPathFeature _exceptionThrown = context.Features.Get<IExceptionHandlerPathFeature>();
 
                     Exception _exception;
 
-                    if (_throwedException.Error is ApiException)
-                        _exception = _throwedException.Error;
-                    else if (_throwedException.Error?.InnerException != null)
-                        _exception = _throwedException.Error.InnerException;
+                    if (_exceptionThrown.Error is ApiException)
+                        _exception = _exceptionThrown.Error;
+                    else if (_exceptionThrown.Error?.InnerException != null)
+                        _exception = _exceptionThrown.Error.InnerException;
                     else
-                        _exception = _throwedException.Error;
+                        _exception = _exceptionThrown.Error;
 
                     if (_exception == null)
                         return;

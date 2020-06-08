@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Xunit;
 using Zup.AdministracaoClientes.API;
 using Zup.AdministracaoClientes.API.ViewModels;
@@ -42,7 +43,7 @@ namespace Zup.AdministracaoClientes.Tests.IntegrationTests
         [Fact(DisplayName = "Cadastrar Cliente Async")]
         public async Task CadastrarClientesAsync_Retorna201Created()
         {
-            // Arrange
+            //Arrange
             var _enderecos = new List<EnderecoViewModel>()
             {
                 new EnderecoViewModel("Av. São Jorge",
@@ -60,9 +61,9 @@ namespace Zup.AdministracaoClientes.Tests.IntegrationTests
             };
 
             var _cliente = new CadastrarClienteViewModel(
-                nome: "João",
-                email: "123.456.555-87",
-                cpf: "joao@gmail.com",
+                nome: "João da Silva",
+                email: "joao.dasilva@gmail.com",
+                cpf: "455.249.280-23",
                 _enderecos,
                 _telefones);
 
@@ -74,18 +75,17 @@ namespace Zup.AdministracaoClientes.Tests.IntegrationTests
 
             HttpRequestMessage _request = new HttpRequestMessage(
                 HttpMethod.Post, "/api/v1/clientes")
-                {
-                    Content = _content
-                };
+            {
+                Content = _content
+            };
 
             // Act
             HttpResponseMessage _response = await _httpClient.SendAsync(_request);
 
+            if (!_response.IsSuccessStatusCode)
 
-            string _responseContent = await _response.Content.ReadAsStringAsync();
-
-            // Assert
-            _response.EnsureSuccessStatusCode();
+                // Assert
+                _response.EnsureSuccessStatusCode();
 
             Assert.Equal(HttpStatusCode.Created, _response.StatusCode);
         }
@@ -108,16 +108,66 @@ namespace Zup.AdministracaoClientes.Tests.IntegrationTests
         [Fact(DisplayName = "Obter Cliente por Id Async")]
         public async Task ObterClientePorIdAsync_Retorna200Ok()
         {
-            // Arrange
-            HttpRequestMessage _request = new HttpRequestMessage(HttpMethod.Get, "/api/v1/clientes");
+
+            //Arrange
+            #region Pre-arrange
+            var _enderecos = new List<EnderecoViewModel>()
+            {
+                new EnderecoViewModel("Av. São Jorge",
+                    50,
+                    "Cidade Salvador",
+                    "Jacareí",
+                    "SP",
+                    "Brasil",
+                    "12312000")
+            };
+
+            var _telefones = new List<long>
+            {
+                12985654585
+            };
+
+            var _cliente = new CadastrarClienteViewModel(
+                nome: "Júnior da Silva",
+                email: "junior.dasilva@gmail.com",
+                cpf: "035.123.050-59",
+                _enderecos,
+                _telefones);
+
+            var _content = new StringContent(
+                JsonConvert.SerializeObject(_cliente),
+                Encoding.UTF8,
+                MediaTypeNames.Application.Json);
+
+
+            HttpRequestMessage _requestCreate = new HttpRequestMessage(
+                HttpMethod.Post, "/api/v1/clientes")
+            {
+                Content = _content
+            };
+
+            HttpResponseMessage _responseCreate = await _httpClient.SendAsync(_requestCreate);
+
+            _responseCreate.EnsureSuccessStatusCode();
+            #endregion
+
+            #region Arrange
+
+            string _resultCreate = await _responseCreate.Content.ReadAsStringAsync();
+
+            JObject _clienteObject = JObject.Parse(_resultCreate);
+
+            HttpRequestMessage _requestGetById = new HttpRequestMessage(HttpMethod.Get, $"/api/v1/clientes/{_clienteObject["id"]}"); 
+
+            #endregion
 
             // Act
-            HttpResponseMessage _response = await _httpClient.SendAsync(_request);
+            HttpResponseMessage _responseGetById = await _httpClient.SendAsync(_requestGetById);
 
             // Assert
-            _response.EnsureSuccessStatusCode();
+            _responseGetById.EnsureSuccessStatusCode();
 
-            Assert.Equal(HttpStatusCode.OK, _response.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, _responseGetById.StatusCode);
         }
     }
 }

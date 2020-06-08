@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "ee84ac10-3102-4bb9-a066-fce695f060f2",
+		"name": "Zup Administração Clientes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Clientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/v1/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cliente By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/v1/clientes/0c0ab088-7524-47c6-aedc-1488385a1108",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"clientes",
+						"0c0ab088-7524-47c6-aedc-1488385a1108"
+					]
+				},
+				"description": "Ao utilizar a request \"Create Cliente (válido)\", obter o id através do response header, key location e obter o cliente por esse id."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Cliente (válido)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Gabriel Vicente\",\r\n  \"cpf\": \"443.502.668-60\",\r\n  \"email\": \"gabrielvicente.m@gmail.com\",\r\n  \"enderecos\": [\r\n    {\r\n      \"rua\": \"Rua Pascoal Pais\",\r\n      \"numero\": 525,\r\n      \"bairro\": \"Vila Cordeiro\",\r\n      \"cidade\": \"São Paulo\",\r\n      \"estado\": \"SP\",\r\n      \"pais\": \"Brasil\",\r\n      \"cep\": \"04581-060\"\r\n    }\r\n  ],\r\n  \"telefones\": [\r\n    12992319064\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/v1/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Cliente (cpf blacklist)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"João Silva\",\r\n  \"cpf\": \"77594555007\",\r\n  \"email\": \"joao.silvam@gmail.com\",\r\n  \"enderecos\": [\r\n    {\r\n      \"rua\": \"Rua Pascoal Pais\",\r\n      \"numero\": 525,\r\n      \"bairro\": \"Vila Cordeiro\",\r\n      \"cidade\": \"São Paulo\",\r\n      \"estado\": \"SP\",\r\n      \"pais\": \"Brasil\",\r\n      \"cep\": \"04581-060\"\r\n    }\r\n  ],\r\n  \"telefones\": [\r\n    12992319064\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/v1/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"clientes"
+					]
+				},
+				"description": "No arquivo appsettings.json:\r\nCPFBlackList:CPFs"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

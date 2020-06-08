@@ -47,10 +47,8 @@ namespace Zup.AdministracaoClientes.API.Controllers
                 _cliente.AdicionarTelefones(new Telefone(telefone));
 
             Cliente _result = await _clienteService.Cadastrar(_cliente);
-            return CreatedAtAction(
-                        nameof(GetClienteById),
-                        new { id = _result.Id }, 
-                        _cliente);
+
+            return Created($"/api/v1/clientes/{_result.Id}", _cliente);
         }
 
         [HttpGet]
