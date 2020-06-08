@@ -139,7 +139,7 @@ Exemplo de Response Body após utilização pelo método POST do `json` acima:
 ## Testes
 
 Testes de unidade e de integração, utilizando a técnica TDD para testar o domínio em conjunto com as regras.
-
+![Painel de testes unitários e de integração com xUnit](https://github.com/gvms23/administracao-clientes/blob/master/assets/testes_evidencia.png)
 
 ## Conceitos e Técnicas:
 * ASP .NET Core 3.1;
