@@ -1,5 +1,7 @@
-﻿using System.Linq;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
+using Newtonsoft.Json;
+using System.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace Zup.AdministracaoClientes.Infra.CrossCutting.Helpers
 {
@@ -12,5 +14,17 @@ namespace Zup.AdministracaoClientes.Infra.CrossCutting.Helpers
         /// <returns></returns>
         public static string GetValidationMessage(this ValidationResult validationResult)
             => string.Join(", ", validationResult.Errors.Select(s => s.ErrorMessage));
+
+
+        public static string ToJson(this object obj)
+        {
+            return JsonConvert.SerializeObject(obj, new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                Formatting = Formatting.Indented,
+                PreserveReferencesHandling = PreserveReferencesHandling.None,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+        }
     }
 }

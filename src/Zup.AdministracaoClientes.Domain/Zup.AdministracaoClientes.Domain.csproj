@@ -6,11 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="8.6.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.1.4" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler\Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler.csproj" />
     <ProjectReference Include="..\Zup.AdministracaoClientes.Infra.CrossCutting.Helpers\Zup.AdministracaoClientes.Infra.CrossCutting.Helpers.csproj" />
   </ItemGroup>
 

@@ -15,7 +15,7 @@ namespace Zup.AdministracaoClientes.Tests.Clientes
             _clienteValidator = new ClienteValidator();
         }
 
-        [Fact(DisplayName = "Criação do Cliente (Dados Válidos)")]
+        [Fact(DisplayName = "Criação do instância (Dados Válidos)")]
         public void CriacaoInstancia_DadosValidos_RetornaVerdadeiro()
         {
             var _cliente = new Cliente("João", "363.348.820-07", "joao@gmail.com");

@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Zup.AdministracaoClientes.Domain.Interfaces.Services;
 using Zup.AdministracaoClientes.Domain.Interfaces.UoW;
 using Zup.AdministracaoClientes.Domain.Types;
 using Zup.AdministracaoClientes.Domain.Validations;
+using Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler.Extensions;
 using Zup.AdministracaoClientes.Infra.CrossCutting.Helpers;
 
 namespace Zup.AdministracaoClientes.Domain.Services
@@ -39,13 +41,19 @@ namespace Zup.AdministracaoClientes.Domain.Services
                 throw new Exception(_clienteValidation.GetValidationMessage());
 
             if (await _clienteRepository.CPFJaEmUsoAsync(cliente.CPF.SemPontuacao))
-                throw new Exception("Já existe um cadastro com o CPF informado");
+                throw new ApiException(
+                    StatusCodes.Status400BadRequest,
+                    "Já existe um cadastro com o CPF informado");
 
             if (await _clienteRepository.EmailJaEmUsoAsync(cliente.Email.Value))
-                throw new Exception("Já existe um cadastro com o e-mail informado");
+                throw new ApiException(
+                    StatusCodes.Status400BadRequest,
+                    "Já existe um cadastro com o e-mail informado");
 
             if (CPFEstaNaBlacklist(cliente.CPF.SemPontuacao))
-                throw new Exception("CPF não permitido");
+                throw new ApiException(
+                    StatusCodes.Status400BadRequest,
+                    "CPF não permitido");
 
             cliente = _clienteRepository.Create(cliente);
 

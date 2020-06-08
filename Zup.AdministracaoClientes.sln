@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zup.AdministracaoClientes.I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zup.AdministracaoClientes.Infra.CrossCutting.Swagger", "src\Zup.AdministracaoClientes.Infra.CrossCutting.Swagger\Zup.AdministracaoClientes.Infra.CrossCutting.Swagger.csproj", "{11F3421F-8D68-46FC-9464-E92C561E98BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler", "src\Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler\Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler.csproj", "{AB2E5705-55FD-4BB5-BE8B-75AD92B08AEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{11F3421F-8D68-46FC-9464-E92C561E98BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11F3421F-8D68-46FC-9464-E92C561E98BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11F3421F-8D68-46FC-9464-E92C561E98BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB2E5705-55FD-4BB5-BE8B-75AD92B08AEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB2E5705-55FD-4BB5-BE8B-75AD92B08AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB2E5705-55FD-4BB5-BE8B-75AD92B08AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB2E5705-55FD-4BB5-BE8B-75AD92B08AEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +89,7 @@ Global
 		{01AB74D7-14E5-498D-A683-A4916C55D164} = {2C7D1CB8-1913-4937-B33A-683C945C98AB}
 		{5BAC5B46-C8D7-4F5E-ABA7-7D4A66F87B87} = {86F478EA-5BDB-4536-AF1B-B6232C28FC90}
 		{11F3421F-8D68-46FC-9464-E92C561E98BB} = {86F478EA-5BDB-4536-AF1B-B6232C28FC90}
+		{AB2E5705-55FD-4BB5-BE8B-75AD92B08AEF} = {86F478EA-5BDB-4536-AF1B-B6232C28FC90}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A94B1D9F-923E-4032-BFD6-71496AB2BFAC}

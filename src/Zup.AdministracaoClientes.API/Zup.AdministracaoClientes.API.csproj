@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Zup.AdministracaoClientes.Domain\Zup.AdministracaoClientes.Domain.csproj" />
+    <ProjectReference Include="..\Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler\Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler.csproj" />
     <ProjectReference Include="..\Zup.AdministracaoClientes.Infra.CrossCutting.IoC\Zup.AdministracaoClientes.Infra.CrossCutting.IoC.csproj" />
     <ProjectReference Include="..\Zup.AdministracaoClientes.Infra.CrossCutting.Swagger\Zup.AdministracaoClientes.Infra.CrossCutting.Swagger.csproj" />
   </ItemGroup>

@@ -14,6 +14,7 @@ using Zup.AdministracaoClientes.API.Types;
 using Zup.AdministracaoClientes.Data.Context;
 using Zup.AdministracaoClientes.Data.Types;
 using Zup.AdministracaoClientes.Domain.Types;
+using Zup.AdministracaoClientes.Infra.CrossCutting.ExceptionHandler.Providers;
 using Zup.AdministracaoClientes.Infra.CrossCutting.IoC;
 using Zup.AdministracaoClientes.Infra.CrossCutting.Swagger;
 
@@ -33,7 +34,7 @@ namespace Zup.AdministracaoClientes.API
         {
             ApplicationSettingsType _applicationSettings = Configuration.GetSection(ApplicationSettingsType.KEY)
                                                                         .Get<ApplicationSettingsType>();
-            
+
             // In Memory
             if (_applicationSettings.TestInMemoryDatabase)
             {
@@ -88,13 +89,15 @@ namespace Zup.AdministracaoClientes.API
 
             RegisterOptions(services);
 
-            services.AddApiVersioning(options =>
-            {
-                options.ReportApiVersions = true;
-                options.AssumeDefaultVersionWhenUnspecified = true;
-                options.DefaultApiVersion = new ApiVersion(_applicationSettings.ApiVersion ?? 1, 0);
-                options.UseApiBehavior = false;
-            });
+            services.AddApiVersioning(
+                options =>
+                {
+                    options.ReportApiVersions = true;
+                    options.AssumeDefaultVersionWhenUnspecified = true;
+                    options.DefaultApiVersion = new ApiVersion(_applicationSettings.ApiVersion ?? 1, 0);
+                    options.UseApiBehavior = false;
+                    options.ErrorResponses = new ApiVersionExceptionHandler();
+                });
 
             services.AddSwaggerConfiguration();
 
@@ -115,7 +118,7 @@ namespace Zup.AdministracaoClientes.API
             });
 
             app.UseAuthentication();
-
+            app.UseExceptionHandlerMiddleware();
             app.UseSwaggerConfiguration();
 
             app.UseRouting();
