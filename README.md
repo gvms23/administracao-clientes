@@ -2,7 +2,8 @@
 
 # Administração de clientes
 Solução para gerenciamento de clientes.
-Desenvolvido por [Gabriel Vicente]([https://www.linkedin.com/in/gvms23/](https://www.linkedin.com/in/gvms23/)).
+Desenvolvido por [Gabriel Vicente](https://www.linkedin.com/in/gvms23/).
+Site do projeto: https://gvms23.github.io/administracao-clientes
 
 # Sumário
 - [Pastas da solução](#pastas-da-solução)
