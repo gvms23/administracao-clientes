@@ -48,6 +48,28 @@
 			"response": []
 		},
 		{
+			"name": "Delete Cliente by Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/v1/clientes/0c0ab088-7524-47c6-aedc-1488385a1108",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"clientes",
+						"0c0ab088-7524-47c6-aedc-1488385a1108"
+					]
+				},
+				"description": "Ao utilizar a request \"Create Cliente (válido)\", utilizar o id retornado no response body."
+			},
+			"response": []
+		},
+		{
 			"name": "Create Cliente (válido)",
 			"request": {
 				"method": "POST",
