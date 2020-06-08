@@ -41,6 +41,8 @@ Para visualizar os dados do SQL Server basta abrir o [SSMS]([https://docs.micros
 * Password: !AsDqWe123@@
 * Database Name: AdministracaoClientes
 
+![Docker Containers](https://github.com/gvms23/administracao-clientes/blob/master/assets/docker_containers.png)
+
 
 ## Endpoints
 
