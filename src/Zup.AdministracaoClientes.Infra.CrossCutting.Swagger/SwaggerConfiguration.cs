@@ -20,7 +20,7 @@ namespace Zup.AdministracaoClientes.Infra.CrossCutting.Swagger
                     {
                         Title = $"API {nameof(AdministracaoClientes)}",
                         Version = "v1",
-                        Description = "API REST desenvolvida com ASP .NET Core 3.1, Docker, DDD, IoC, Unit of Work, Repository Pattern, xUnit.",
+                        Description = "API REST desenvolvida com ASP .NET Core 3.1, Docker, DDD, TDD, IoC, Unit of Work, Repository Pattern, xUnit, Custom Middlewares, etc.",
                         Contact = new OpenApiContact
                         {
                             Name = "Gabriel Vicente",

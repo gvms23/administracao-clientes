@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -15,13 +16,13 @@ using Zup.AdministracaoClientes.API.ViewModels;
 
 namespace Zup.AdministracaoClientes.Tests.IntegrationTests
 {
+    [Obsolete("[WIP] Work in progress - não utilizar por ora")]
     public class ClienteIntegrationTest
     {
         private readonly HttpClient _httpClient;
 
         public ClienteIntegrationTest()
         {
-
             DirectoryInfo _directoryInfo = new DirectoryInfo(typeof(ClienteIntegrationTest).Assembly.Location).Parent;
 
             TestServer _server = new TestServer(new WebHostBuilder()
