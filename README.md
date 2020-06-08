@@ -142,6 +142,8 @@ Exemplo de Response Body após utilização pelo método POST do `json` acima:
     }
 ```
 
+![Schema Swagger](https://github.com/gvms23/administracao-clientes/blob/master/assets/schema_swagger.png)
+
 ## Collection Postman
 O arquivo para testes pode ser baixado [nesse link](https://github.com/gvms23/administracao-clientes/blob/master/Zup%20Administra%C3%A7%C3%A3o%20Clientes.postman_collection.json), para ser importado ao [Postman](https://www.postman.com/downloads/).
 
