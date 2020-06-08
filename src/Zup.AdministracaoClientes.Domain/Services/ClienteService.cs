@@ -50,7 +50,7 @@ namespace Zup.AdministracaoClientes.Domain.Services
                     StatusCodes.Status400BadRequest,
                     "Já existe um cadastro com o e-mail informado");
 
-            if (CPFEstaNaBlacklist(cliente.CPF.SemPontuacao))
+            if (CPFConstaNaBlacklist(cliente.CPF.SemPontuacao))
                 throw new ApiException(
                     StatusCodes.Status400BadRequest,
                     "CPF não permitido");
@@ -62,7 +62,7 @@ namespace Zup.AdministracaoClientes.Domain.Services
             return cliente;
         }
 
-        private bool CPFEstaNaBlacklist(ulong? cpf) =>
-            cpf.HasValue && _cpfBlacklist.CPFs.Contains(cpf.Value.ToString());
+        private bool CPFConstaNaBlacklist(ulong cpf) =>
+            _cpfBlacklist.CPFs.Contains(cpf.ToString());
     }
 }

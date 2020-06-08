@@ -20,6 +20,9 @@ namespace Zup.AdministracaoClientes.Data.Repositories
         public async Task<List<Cliente>> GetAsync()
             => await Query(wh => !wh.IsDeleted).ToListAsync();
 
+        public async Task<Cliente> GetByIdAsync(Guid id)
+            => await FindAsync(wh => !wh.IsDeleted && wh.Id == id);
+
         public async Task<bool> CPFJaEmUsoAsync(ulong cpfSemPontuacao) 
             => await Query(wh => wh.CPF.Value == cpfSemPontuacao.ToString()).AnyAsync();
 

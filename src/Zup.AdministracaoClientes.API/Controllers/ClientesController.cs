@@ -28,7 +28,7 @@ namespace Zup.AdministracaoClientes.API.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(Cliente), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Cliente), StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateCliente([FromBody] CadastrarClienteViewModel cliente)
         {
             Cliente _cliente = new Cliente(cliente.Nome, cliente.CPF, cliente.Email);
@@ -47,7 +47,10 @@ namespace Zup.AdministracaoClientes.API.Controllers
                 _cliente.AdicionarTelefones(new Telefone(telefone));
 
             Cliente _result = await _clienteService.Cadastrar(_cliente);
-            return Ok(_result);
+            return CreatedAtAction(
+                        nameof(GetClienteById),
+                        new { id = _result.Id }, 
+                        _cliente);
         }
 
         [HttpGet]
@@ -55,6 +58,15 @@ namespace Zup.AdministracaoClientes.API.Controllers
         public async Task<IActionResult> GetClientes()
         {
             List<Cliente> _result = await _clienteRepository.GetAsync();
+
+            return Ok(_result);
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Cliente), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetClienteById(Guid id)
+        {
+            Cliente _result = await _clienteRepository.GetByIdAsync(id);
 
             return Ok(_result);
         }

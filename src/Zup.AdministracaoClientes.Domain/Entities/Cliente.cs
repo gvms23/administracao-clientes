@@ -7,10 +7,8 @@ namespace Zup.AdministracaoClientes.Domain.Entities
 {
     public class Cliente : EntityBase
     {
-        protected Cliente()
-        {
-            // EF
-        }
+        protected Cliente() { }
+
         public Cliente(string nome, string cpf, string email)
         {
             Nome = nome;

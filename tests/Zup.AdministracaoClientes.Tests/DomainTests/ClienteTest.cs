@@ -5,7 +5,7 @@ using Zup.AdministracaoClientes.Domain.Validations;
 using Zup.AdministracaoClientes.Domain.ValueObjects;
 using Zup.AdministracaoClientes.Infra.CrossCutting.Helpers;
 
-namespace Zup.AdministracaoClientes.Tests.Clientes
+namespace Zup.AdministracaoClientes.Tests.DomainTests
 {
     public class ClienteTest
     {

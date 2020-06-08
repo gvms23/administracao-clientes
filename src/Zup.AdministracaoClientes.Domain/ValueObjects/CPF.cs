@@ -9,9 +9,6 @@ namespace Zup.AdministracaoClientes.Domain.ValueObjects
     public class CPF : IValueObject
     {
 
-        public override bool Equals(object obj)
-            => obj != null && SemPontuacao == (ulong)obj;
-
         public CPF()
         {
             // EFCore.
