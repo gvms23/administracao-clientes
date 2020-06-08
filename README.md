@@ -1,4 +1,5 @@
 
+
 # Administração de clientes
 Solução para gerenciamento de clientes.
 Desenvolvido por [Gabriel Vicente]([https://www.linkedin.com/in/gvms23/](https://www.linkedin.com/in/gvms23/)).
@@ -157,6 +158,7 @@ Testes de unidade e de integração, utilizando a técnica TDD para testar o dom
 * Técnica TDD;
 * Unit of Work Pattern;
 * FluentValidation Library;
+* Clean Architecture ~~(Valeu Uncle Bob!)~~;
 * Unit Tests com xUnit;
 * Integration Tests com xUnit;
 * IoC (camada isolada);
