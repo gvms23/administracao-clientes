@@ -7,6 +7,7 @@ Desenvolvido por [Gabriel Vicente]([https://www.linkedin.com/in/gvms23/](https:/
 - [Pastas da solução](#pastas-da-solução)
 - [Utilização](#utilização)
 - [Endpoints](#endpoints)
+	- [Collection Postman](#collection-postman)
 - [Testes](#testes)
 - [Conceitos e Técnicas](#conceitos-e-técnicas)
 - [Créditos](#créditos)
@@ -136,6 +137,12 @@ Exemplo de Response Body após utilização pelo método POST do `json` acima:
       "createdDate": "2020-06-08T05:15:25.8955216+00:00"
     }
 ```
+
+## Collection Postman
+O arquivo para testes pode ser baixado [nesse link](https://github.com/gvms23/administracao-clientes/blob/master/Zup%20Administra%C3%A7%C3%A3o%20Clientes.postman_collection.json), para ser importado ao [Postman](https://www.postman.com/downloads/).
+
+![Collection Postman](https://github.com/gvms23/administracao-clientes/blob/master/assets/collection_postman.png)
+
 ## Testes
 
 Testes de unidade e de integração, utilizando a técnica TDD para testar o domínio em conjunto com as regras.
